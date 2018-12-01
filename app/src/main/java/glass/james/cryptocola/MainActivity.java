@@ -1,10 +1,13 @@
 package glass.james.cryptocola;
 
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import android.app.Activity;
@@ -30,12 +33,22 @@ import android.nfc.NdefRecord;
 
 import java.util.Arrays;
 
+
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "NfcDemo";
 
     private TextView info;
     private NfcAdapter adapter;
+
+    TextView output;
+    ImageButton anw;
+    ImageButton coke;
+    ImageButton dp;
+    ImageButton fanta;
+    ImageButton mm;
+    ImageButton pepsi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +58,22 @@ public class MainActivity extends AppCompatActivity {
         info = findViewById(R.id.info);
 
         adapter = NfcAdapter.getDefaultAdapter(this);
+
+        output = (TextView) findViewById(R.id.output);
+        anw = (ImageButton) findViewById(R.id.anw);
+        coke = (ImageButton) findViewById(R.id.coke);
+        dp = (ImageButton) findViewById(R.id.dp);
+        fanta = (ImageButton) findViewById(R.id.fanta);
+        mm = (ImageButton) findViewById(R.id.mm);
+        pepsi = (ImageButton) findViewById(R.id.pepsi);
+
+        anw.setEnabled(false);
+        coke.setEnabled(false);
+        dp.setEnabled(false);
+        fanta.setEnabled(false);
+        mm.setEnabled(false);
+        pepsi.setEnabled(false);
+
 
         if (adapter == null) {
             info.setText("NFC is not supported on this device.");
@@ -65,6 +94,66 @@ public class MainActivity extends AppCompatActivity {
             Log.e("CryptoColaLog", "Unsupported Encoding", e);
         }
     }
+
+    public void dispenseANW (View v){
+        output.setText("ANW");
+    }
+    public void dispenseCoke (View v){
+        output.setText("Coke");
+    }
+    public void dispenseDP (View v){
+        output.setText("DP");
+    }
+    public void dispenseFanta (View v){
+        output.setText("Fanta");
+    }
+    public void dispenseMM (View v){
+        output.setText("MM");
+    }
+    public void dispensePepsi (View v){
+        output.setText("Pepsi");
+    }
+
+
+
+    public void activateButton(String drink){
+
+        if((drink.equals("Rootbeer"))){
+            anw.setEnabled(true);
+        }
+        else if((drink.equals("Coca-Cola"))){
+            coke.setEnabled(true);
+        }
+        else if((drink.equals("Dr. Pepper"))){
+            dp.setEnabled(true);
+        }
+        else if((drink.equals("Lemonade"))){
+            mm.setEnabled(true);
+        }
+        else if((drink.equals("Pepsi"))){
+            pepsi.setEnabled(true);
+        }
+    }
+
+    public boolean checkAccount(){
+
+//        Log.i("TAG","android.os.Build.SERIAL: " + Build.SERIAL);
+//        String serialNumber = Build.getSerial();
+
+        return true;
+    }
+    public boolean checkCredits(){
+        return true;
+    }
+    public boolean checkStock(){
+
+        return true;
+    }
+    public void subCredits(){
+
+    }
+
+
 
     @Override
     protected void onResume() {
@@ -120,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
                         //this result is a string for the drink name. Ex: Pepsi
                         String result =  new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
 
+                        activateButton(result);
                         Log.e("CryptoColaLog", result);
                     } catch (UnsupportedEncodingException e) {
                         //Log.e(TAG, "Unsupported Encoding", e);

@@ -318,6 +318,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 res = result;
+                con.close();
             }
             catch(Exception e) {
                 e.printStackTrace();
@@ -364,6 +365,7 @@ public class MainActivity extends AppCompatActivity {
 //                while (rs.next()) {}
 
                 res = result;
+                con.close();
             }
             catch(Exception e) {
                 e.printStackTrace();
@@ -384,9 +386,6 @@ public class MainActivity extends AppCompatActivity {
         Boolean currentBalanceCheck = false;
         Integer currentUserBalance;
         String currentUserBalanceString;
-        String res2 = "";
-        Integer CurrentDrinkCount;
-        String CurrentDrinkCountString;
 
 
         @Override
@@ -426,36 +425,9 @@ public class MainActivity extends AppCompatActivity {
                     Statement st2 = con.createStatement();
                     int rs2 = st2.executeUpdate("UPDATE Users SET balance='" + currentUserBalanceString + "' WHERE userid='" + serialNumber + "'");
 
-
-                    String result2 = "";
-                    Statement st3 = con.createStatement();
-                    ResultSet rs3 = st3.executeQuery("select stock from Drinks where drink='" + selectedDrink + "'");
-                    ResultSetMetaData rsmd2 = rs3.getMetaData();
-
-                    while (rs3.next()) {
-                        result += rs3.getString(1).toString();
-                    }
-
-
-                    CurrentDrinkCount = Integer.valueOf(result);
-
-                    if (CurrentDrinkCount >= 1) {
-
-                        CurrentDrinkCount = CurrentDrinkCount - 1;
-
-                        CurrentDrinkCountString = String.valueOf(CurrentDrinkCount);
-
-
-                        Statement st4 = con.createStatement();
-                        int rs4 = st4.executeUpdate("UPDATE Drinks SET stock='" + CurrentDrinkCountString + "' WHERE drink='" + selectedDrink + "'");
-
-                    }
-
                 }
 
-
-
-
+                con.close();
                 res = result;
             }
             catch(Exception e) {
@@ -519,17 +491,17 @@ public class MainActivity extends AppCompatActivity {
 
                     drinkAvaibleCheck = true;
 
-//                    CurrentDrinkCount = CurrentDrinkCount - 1;
-//
-//                    CurrentDrinkCountString = String.valueOf(CurrentDrinkCount);
-//
-//
-//                    Statement st2 = con.createStatement();
-//                    int rs2 = st2.executeUpdate("UPDATE Drinks SET stock='" + CurrentDrinkCountString + "' WHERE drink='" + selectedDrink + "'");
+                    CurrentDrinkCount = CurrentDrinkCount - 1;
+
+                    CurrentDrinkCountString = String.valueOf(CurrentDrinkCount);
+
+
+                    Statement st2 = con.createStatement();
+                    int rs2 = st2.executeUpdate("UPDATE Drinks SET stock='" + CurrentDrinkCountString + "' WHERE drink='" + selectedDrink + "'");
 
                 }
 
-
+                con.close();
                 res = result;
             }
             catch(Exception e) {

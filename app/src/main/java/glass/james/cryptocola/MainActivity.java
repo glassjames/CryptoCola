@@ -86,10 +86,9 @@ public class MainActivity extends AppCompatActivity {
 
         initializeComponents();
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) {
-            }
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) { }
             else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, PERMISSIONS_REQUEST_READ_PHONE_STATE);
             }
@@ -163,9 +162,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+
         deselectAll();
 
-        if (adapter == null) {
+        if(adapter == null) {
             info.setText("NFC is not supported on this device.");
             finish();
             return;
@@ -179,7 +179,8 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             intentHandler(getIntent());
-        } catch (UnsupportedEncodingException e) {
+        }
+        catch(UnsupportedEncodingException e) {
             Log.e("CryptoColaLog", "Unsupported Encoding", e);
         }
     }
@@ -187,21 +188,17 @@ public class MainActivity extends AppCompatActivity {
     public void checkAccount() {
         handleAccount checkAccount = new handleAccount();
         checkAccount.execute("");
-
     }
 
     public void createAccount() {
         createAccountId accountCreate = new createAccountId();
         accountCreate.execute("");
-
     }
 
     public void checkUserCredits() {
         checkUserCredits userCreditCheck = new checkUserCredits();
         userCreditCheck.execute("");
     }
-
-
 
     @Override
     protected void onResume() {
@@ -222,7 +219,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         try {
             intentHandler(intent);
-        } catch (UnsupportedEncodingException e) {
+        }
+        catch(UnsupportedEncodingException e) {
             Log.e("CryptoColaLog", "Unsupported Encoding", e);
         }
     }
@@ -230,13 +228,13 @@ public class MainActivity extends AppCompatActivity {
     private void intentHandler(Intent intent) throws UnsupportedEncodingException {
         //Log.e("CryptoColaLog", "Handle Time: " + intent.getAction());
 
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+        if(NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
             showVendingMachine();
 
             Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 
             Ndef ndef = Ndef.get(tagFromIntent);
-            if (ndef == null) {
+            if(ndef == null) {
                 // NDEF is not supported by this Tag.
                 return;
             }
@@ -247,8 +245,8 @@ public class MainActivity extends AppCompatActivity {
 
             Log.e("CryptoColaLog", "---------------- SODA TIME ----------------");
 
-            for (NdefRecord ndefRecord : records) {
-                if (ndefRecord.getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(ndefRecord.getType(), NdefRecord.RTD_TEXT)) {
+            for(NdefRecord ndefRecord : records) {
+                if(ndefRecord.getTnf() == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(ndefRecord.getType(), NdefRecord.RTD_TEXT)) {
                     try {
                         byte[] payload = ndefRecord.getPayload();
                         String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
@@ -260,14 +258,21 @@ public class MainActivity extends AppCompatActivity {
                         showDrink(result);
 
                         Log.e("CryptoColaLog", result);
-                    } catch (UnsupportedEncodingException e) {
-                        //Log.e(TAG, "Unsupported Encoding", e);
+                    }
+                    catch(UnsupportedEncodingException e) {
+                        //Log.e(CryptoColaLog, "Unsupported Encoding", e);
                     }
                 }
             }
             Log.e("CryptoColaLog", "-------------------------------------------");
 
-            serialNumber = Build.getSerial();
+            try {
+                serialNumber = Build.getSerial();
+            }
+            catch(SecurityException e) {
+                //Log.e("CryptoColaLog", "Permission not accepted", e);
+            }
+
             checkAccount();
 
         }
@@ -283,9 +288,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(MainActivity.this, "Please wait...", Toast.LENGTH_SHORT)
-                    .show();
-
+            Toast.makeText(MainActivity.this, "Please wait...", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -301,9 +304,9 @@ public class MainActivity extends AppCompatActivity {
                 ResultSet rs = st.executeQuery("select distinct userid from Users");
                 ResultSetMetaData rsmd = rs.getMetaData();
 
-                while (rs.next()) {
+                while(rs.next()) {
 
-                    if ((rs.getString(1).toString()).equals(serialNumber)) {
+                    if((rs.getString(1).toString()).equals(serialNumber)) {
                         found = true;
                     }
 //                    result += rs.getString(1).toString() + "\n";
@@ -311,7 +314,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 res = result;
-            } catch (Exception e) {
+            }
+            catch(Exception e) {
                 e.printStackTrace();
                 res = e.toString();
             }
@@ -321,12 +325,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 
-            if (found) {
-                Toast.makeText(MainActivity.this, "Connected to account", Toast.LENGTH_SHORT)
-                        .show();
-            } else {
-                Toast.makeText(MainActivity.this, "No account found, creating now", Toast.LENGTH_SHORT)
-                        .show();
+            if(found) {
+                Toast.makeText(MainActivity.this, "Connected to account", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(MainActivity.this, "No account found, creating now", Toast.LENGTH_SHORT).show();
                 createAccount();
             }
         }
@@ -338,8 +341,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(MainActivity.this, "Please wait creating account", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(MainActivity.this, "Please wait creating account", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -353,24 +355,23 @@ public class MainActivity extends AppCompatActivity {
                 String result = "";
                 Statement st = con.createStatement();
                 int rs = st.executeUpdate("insert into Users (userid, balance) values ('" + serialNumber + "' , 10)");
-//                ResultSetMetaData rsmd = rs.getMetaData();
-//
-//                while (rs.next()) {
-//
-//                }
-                res = result;
-            } catch (Exception e) {
 
+//                ResultSetMetaData rsmd = rs.getMetaData();
+//                while (rs.next()) {}
+
+                res = result;
+            }
+            catch(Exception e) {
                 e.printStackTrace();
                 res = e.toString();
             }
+
             return res;
         }
 
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(MainActivity.this, "Account created", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(MainActivity.this, "Account created", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -384,9 +385,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(MainActivity.this, "Checking Credits", Toast.LENGTH_SHORT)
-                    .show();
-
+            Toast.makeText(MainActivity.this, "Checking Credits", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -400,8 +399,6 @@ public class MainActivity extends AppCompatActivity {
                 Statement st = con.createStatement();
                 ResultSet rs = st.executeQuery("select balance from Users where userid='" + serialNumber + "'");
                 ResultSetMetaData rsmd = rs.getMetaData();
-
-//                System.out.println("test");
 
                 while (rs.next()) {
                     result += rs.getString(1).toString();
@@ -426,7 +423,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                 res = result;
-            } catch (Exception e) {
+            }
+            catch(Exception e) {
 
                 e.printStackTrace();
                 res = e.toString();
@@ -437,12 +435,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
 
-            if (currentBalanceCheck) {
-                Toast.makeText(MainActivity.this, "Purchase Complete", Toast.LENGTH_SHORT)
-                        .show();
-            } else {
-                Toast.makeText(MainActivity.this, "Not Enough Credits", Toast.LENGTH_SHORT)
-                        .show();
+            if(currentBalanceCheck) {
+                Toast.makeText(MainActivity.this, "Purchase Complete", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(MainActivity.this, "Not Enough Credits", Toast.LENGTH_SHORT).show();
             }
 
         }

@@ -6,6 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!--<item name="coke">@color/coke</item>-->
+        <!--<item name="pepsi">@color/pepsi</item>-->
+        <!--<item name="mtndew">@color/mtndew</item>-->
+        <!--<item name="drpepper">@color/drpepper</item>-->
+        <!--<item name="rootbeer">@color/rootbeer</item>-->
+        <!--<item name="lemonade">@color/lemonade</item>-->
     </style>
 
 </resources>

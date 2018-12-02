@@ -7,44 +7,44 @@ import android.os.Bundle;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.IntentFilter.MalformedMimeTypeException;
-
-import android.nfc.tech.NfcA;
-import android.os.AsyncTask;
-
 import android.util.Log;
-
-import java.nio.charset.Charset;
-
-import android.os.Parcelable;
 import android.nfc.NdefMessage;
-
 import java.io.UnsupportedEncodingException;
-
 import android.nfc.tech.Ndef;
 import android.nfc.NdefRecord;
-
 import java.util.Arrays;
-
 import android.graphics.Typeface;
-
 import android.widget.ImageView;
 import android.widget.Button;
+
+import android.content.IntentFilter;
+import android.content.IntentFilter.MalformedMimeTypeException;
+import android.nfc.tech.NfcA;
+import android.widget.ImageButton;
+import android.app.Activity;
+import java.nio.charset.Charset;
+import android.os.Parcelable;
 import android.widget.LinearLayout;
+
+import android.os.AsyncTask;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private String selectedDrink = "";
-
-    public static final String TAG = "NfcDemo";
 
     private TextView info;
     private NfcAdapter adapter;
@@ -55,14 +55,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageView drpepperimg;
     private ImageView rootbeerimg;
     private ImageView lemonadeimg;
-
-//    TextView output;
-//    ImageButton anw;
-//    ImageButton coke;
-//    ImageButton dp;
-//    ImageButton fanta;
-//    ImageButton mm;
-//    ImageButton pepsi;
 
     private Button coke;
     private Button pepsi;
@@ -81,20 +73,31 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout rootbeerOption;
     private LinearLayout lemonadeOption;
 
+    int PERMISSIONS_REQUEST_READ_PHONE_STATE;
+    private static final String url = "jdbc:mysql://sql3.freemysqlhosting.net:3306/sql3267945";
+    private static final String user = "sql3267945";
+    private static final String pass = "HmfsUH6Fzp";
+    String serialNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        setFont((TextView) findViewById(R.id.appname));
-//        setFont((TextView) findViewById(R.id.nfctext1));
-//        setFont((TextView) findViewById(R.id.nfctext2));
-//        setFont((TextView) findViewById(R.id.btcinfo));
-//        setFont((TextView) findViewById(R.id.btcamount));
-
-        ////////////////////////////////////////////////////////
-
         initializeComponents();
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) {
+            }
+            else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, PERMISSIONS_REQUEST_READ_PHONE_STATE);
+            }
+
+        }
+        else {
+            // Permission has already been granted
+        }
 
         hideVendingMachine();
 
@@ -160,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-
         deselectAll();
 
         if (adapter == null) {
@@ -175,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
             info.setText("NFC is enabled.");
         }
 
-//        intentHandler(getIntent());
         try {
             intentHandler(getIntent());
         } catch (UnsupportedEncodingException e) {
@@ -183,62 +184,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    public void dispenseANW (View v){
-//        output.setText("ANW");
-//    }
-//    public void dispenseCoke (View v){
-//        output.setText("Coke");
-//    }
-//    public void dispenseDP (View v){
-//        output.setText("DP");
-//    }
-//    public void dispenseFanta (View v){
-//        output.setText("Fanta");
-//    }
-//    public void dispenseMM (View v){
-//        output.setText("MM");
-//    }
-//    public void dispensePepsi (View v){
-//        output.setText("Pepsi");
-//    }
+    public void checkAccount() {
+        handleAccount checkAccount = new handleAccount();
+        checkAccount.execute("");
 
-
-
-    public void activateButton(String drink){
-
-//        if((drink.equals("Rootbeer"))){
-//            anw.setEnabled(true);
-//        }
-//        else if((drink.equals("Coca-Cola"))){
-//            coke.setEnabled(true);
-//        }
-//        else if((drink.equals("Dr. Pepper"))){
-//            dp.setEnabled(true);
-//        }
-//        else if((drink.equals("Lemonade"))){
-//            mm.setEnabled(true);
-//        }
-//        else if((drink.equals("Pepsi"))){
-//            pepsi.setEnabled(true);
-//        }
     }
 
-    public boolean checkAccount(){
+    public void createAccount() {
+        createAccountId accountCreate = new createAccountId();
+        accountCreate.execute("");
 
-//        Log.i("TAG","android.os.Build.SERIAL: " + Build.SERIAL);
-//        String serialNumber = Build.getSerial();
-
-        return true;
     }
-    public boolean checkCredits(){
-        return true;
-    }
-    public boolean checkStock(){
 
-        return true;
-    }
-    public void subCredits(){
-
+    public void checkUserCredits() {
+        checkUserCredits userCreditCheck = new checkUserCredits();
+        userCreditCheck.execute("");
     }
 
 
@@ -260,7 +220,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-//        intentHandler(intent);
         try {
             intentHandler(intent);
         } catch (UnsupportedEncodingException e) {
@@ -298,7 +257,6 @@ public class MainActivity extends AppCompatActivity {
                         //this result is a string for the drink name. Ex: Pepsi
                         String result =  new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
 
-                        //activateButton(result);
                         showDrink(result);
 
                         Log.e("CryptoColaLog", result);
@@ -309,10 +267,186 @@ public class MainActivity extends AppCompatActivity {
             }
             Log.e("CryptoColaLog", "-------------------------------------------");
 
+            serialNumber = Build.getSerial();
+            checkAccount();
+
         }
         else {
             //Log.e("CryptoColaLog", "Intent is Bad");
         }
+    }
+
+    private class handleAccount extends AsyncTask<String, Void, String> {
+        String res = "";
+        Boolean found = false;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(MainActivity.this, "Please wait...", Toast.LENGTH_SHORT)
+                    .show();
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = DriverManager.getConnection(url, user, pass);
+                System.out.println("Databaseection success");
+
+                String result = "";
+//                String result = "Database Connection Successful\n";
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery("select distinct userid from Users");
+                ResultSetMetaData rsmd = rs.getMetaData();
+
+                while (rs.next()) {
+
+                    if ((rs.getString(1).toString()).equals(serialNumber)) {
+                        found = true;
+                    }
+//                    result += rs.getString(1).toString() + "\n";
+
+
+                }
+                res = result;
+            } catch (Exception e) {
+                e.printStackTrace();
+                res = e.toString();
+            }
+            return res;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            if (found) {
+                Toast.makeText(MainActivity.this, "Connected to account", Toast.LENGTH_SHORT)
+                        .show();
+            } else {
+                Toast.makeText(MainActivity.this, "No account found, creating now", Toast.LENGTH_SHORT)
+                        .show();
+                createAccount();
+            }
+        }
+    }
+
+    private class createAccountId extends AsyncTask<String, Void, String> {
+        String res = "";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(MainActivity.this, "Please wait creating account", Toast.LENGTH_SHORT)
+                    .show();
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = DriverManager.getConnection(url, user, pass);
+                System.out.println("Databaseection success2");
+
+                String result = "";
+                Statement st = con.createStatement();
+                int rs = st.executeUpdate("insert into Users (userid, balance) values ('" + serialNumber + "' , 10)");
+//                ResultSetMetaData rsmd = rs.getMetaData();
+//
+//                while (rs.next()) {
+//
+//                }
+                res = result;
+            } catch (Exception e) {
+
+                e.printStackTrace();
+                res = e.toString();
+            }
+            return res;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(MainActivity.this, "Account created", Toast.LENGTH_SHORT)
+                    .show();
+        }
+    }
+
+    private class checkUserCredits extends AsyncTask<String, Void, String> {
+        String res = "";
+        Boolean currentBalanceCheck = false;
+        Integer currentUserBalance;
+        String currentUserBalanceString;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(MainActivity.this, "Checking Credits", Toast.LENGTH_SHORT)
+                    .show();
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = DriverManager.getConnection(url, user, pass);
+                System.out.println("Databaseection success2");
+
+                String result = "";
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery("select balance from Users where userid='" + serialNumber + "'");
+                ResultSetMetaData rsmd = rs.getMetaData();
+
+//                System.out.println("test");
+
+                while (rs.next()) {
+                    result += rs.getString(1).toString();
+                }
+
+
+                currentUserBalance = Integer.valueOf(result);
+
+                if (currentUserBalance >= 1) {
+
+                    currentBalanceCheck = true;
+
+                    currentUserBalance = currentUserBalance - 1;
+
+                    currentUserBalanceString = String.valueOf(currentUserBalance);
+
+
+                    Statement st2 = con.createStatement();
+                    int rs2 = st2.executeUpdate("UPDATE Users SET balance='" + currentUserBalanceString + "' WHERE userid='" + serialNumber + "'");
+
+                }
+
+
+                res = result;
+            } catch (Exception e) {
+
+                e.printStackTrace();
+                res = e.toString();
+            }
+            return res;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            if (currentBalanceCheck) {
+                Toast.makeText(MainActivity.this, "Purchase Complete", Toast.LENGTH_SHORT)
+                        .show();
+            } else {
+                Toast.makeText(MainActivity.this, "Not Enough Credits", Toast.LENGTH_SHORT)
+                        .show();
+            }
+
+        }
+
     }
 
     public void setFont(TextView tx) {
@@ -410,6 +544,7 @@ public class MainActivity extends AppCompatActivity {
     public void payAndVend() {
         if(!selectedDrink.equals("")) {
             //time to order drink
+            checkUserCredits();
         }
         else {
             //no drink selected error

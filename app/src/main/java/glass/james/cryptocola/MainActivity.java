@@ -199,6 +199,10 @@ public class MainActivity extends AppCompatActivity {
         checkUserCredits userCreditCheck = new checkUserCredits();
         userCreditCheck.execute("");
     }
+    public void updateDrinkCount(){
+        updateDrinkInv drinkCountUpdate = new updateDrinkInv();
+        drinkCountUpdate.execute("");
+    }
 
     @Override
     protected void onResume() {
@@ -380,6 +384,9 @@ public class MainActivity extends AppCompatActivity {
         Boolean currentBalanceCheck = false;
         Integer currentUserBalance;
         String currentUserBalanceString;
+        String res2 = "";
+        Integer CurrentDrinkCount;
+        String CurrentDrinkCountString;
 
 
         @Override
@@ -419,7 +426,34 @@ public class MainActivity extends AppCompatActivity {
                     Statement st2 = con.createStatement();
                     int rs2 = st2.executeUpdate("UPDATE Users SET balance='" + currentUserBalanceString + "' WHERE userid='" + serialNumber + "'");
 
+
+                    String result2 = "";
+                    Statement st3 = con.createStatement();
+                    ResultSet rs3 = st3.executeQuery("select stock from Drinks where drink='" + selectedDrink + "'");
+                    ResultSetMetaData rsmd2 = rs3.getMetaData();
+
+                    while (rs3.next()) {
+                        result += rs3.getString(1).toString();
+                    }
+
+
+                    CurrentDrinkCount = Integer.valueOf(result);
+
+                    if (CurrentDrinkCount >= 1) {
+
+                        CurrentDrinkCount = CurrentDrinkCount - 1;
+
+                        CurrentDrinkCountString = String.valueOf(CurrentDrinkCount);
+
+
+                        Statement st4 = con.createStatement();
+                        int rs4 = st4.executeUpdate("UPDATE Drinks SET stock='" + CurrentDrinkCountString + "' WHERE drink='" + selectedDrink + "'");
+
+                    }
+
                 }
+
+
 
 
                 res = result;
@@ -437,9 +471,84 @@ public class MainActivity extends AppCompatActivity {
 
             if(currentBalanceCheck) {
                 Toast.makeText(MainActivity.this, "Purchase Complete", Toast.LENGTH_SHORT).show();
+
+
             }
             else {
                 Toast.makeText(MainActivity.this, "Not Enough Credits", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+    }
+
+
+    private class updateDrinkInv extends AsyncTask<String, Void, String> {
+        String res = "";
+        Boolean drinkAvaibleCheck = false;
+        Integer CurrentDrinkCount;
+        String CurrentDrinkCountString;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(MainActivity.this, "Checking Inventory", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = DriverManager.getConnection(url, user, pass);
+                System.out.println("Databaseection success3");
+
+                String result = "";
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery("select stock from Drinks where drink='" + selectedDrink + "'");
+                ResultSetMetaData rsmd = rs.getMetaData();
+
+                while (rs.next()) {
+                    result += rs.getString(1).toString();
+                }
+
+
+                CurrentDrinkCount = Integer.valueOf(result);
+
+                if (CurrentDrinkCount >= 1) {
+
+                    drinkAvaibleCheck = true;
+
+//                    CurrentDrinkCount = CurrentDrinkCount - 1;
+//
+//                    CurrentDrinkCountString = String.valueOf(CurrentDrinkCount);
+//
+//
+//                    Statement st2 = con.createStatement();
+//                    int rs2 = st2.executeUpdate("UPDATE Drinks SET stock='" + CurrentDrinkCountString + "' WHERE drink='" + selectedDrink + "'");
+
+                }
+
+
+                res = result;
+            }
+            catch(Exception e) {
+
+                e.printStackTrace();
+                res = e.toString();
+            }
+            return res;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            if(drinkAvaibleCheck) {
+                Toast.makeText(MainActivity.this, "In stock, charging account", Toast.LENGTH_SHORT).show();
+                checkUserCredits();
+            }
+            else {
+                Toast.makeText(MainActivity.this, "Out of stock", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -541,7 +650,7 @@ public class MainActivity extends AppCompatActivity {
     public void payAndVend() {
         if(!selectedDrink.equals("")) {
             //time to order drink
-            checkUserCredits();
+            updateDrinkCount();
         }
         else {
             //no drink selected error

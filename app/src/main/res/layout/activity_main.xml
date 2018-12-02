@@ -4,111 +4,356 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/appname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/catatanperjalanan"
+        android:text="CryptoCola"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textSize="65dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="198dp"
+        android:layout_height="201dp"
+        android:layout_marginTop="215dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cryptocolalogo" />
+
+    <TextView
+        android:id="@+id/nfctext1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/catatanperjalanan"
+        android:text="Tap Your Phone"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/nfctext2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/catatanperjalanan"
+        android:text="To The Machine To Get Started"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nfctext1" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="40dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appname"
+        app:srcCompat="@drawable/nfclogo" />
 
     <TextView
         android:id="@+id/info"
-        android:layout_width="76dp"
-        android:layout_height="0dp"
-        android:text="Hello World!"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="7dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/output"
+    <TextView
+        android:id="@+id/btcinfo"
         android:layout_width="wrap_content"
-        android:layout_height="46dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="32dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:singleLine="true"
-        android:text="Select a Soda"
+        android:layout_height="28dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:fontFamily="@font/catatanperjalanan"
+        android:text="Current Price Of Soda"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/anw"
+    <TextView
+        android:id="@+id/btcamount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        android:onClick="dispenseANW"
-        android:src="@drawable/anw"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:fontFamily="@font/catatanperjalanan"
+        android:text="0.00024 BTC"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btcinfo" />
+
+    <LinearLayout
+        android:id="@+id/vendingmachine"
+        android:layout_width="395dp"
+        android:layout_height="734dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginBottom="7dp"
+        android:background="@color/colorAccent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/output" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-    <ImageButton
-        android:id="@+id/coke"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        android:onClick="dispenseCoke"
-        android:src="@drawable/coke"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/anw" />
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="207dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        android:onClick="dispenseDP"
-        android:src="@drawable/dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coke" />
-
-    <ImageButton
-        android:id="@+id/fanta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        android:onClick="dispenseFanta"
-        android:src="@drawable/fanta"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dp" />
-
-    <ImageButton
-        android:id="@+id/mm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        android:onClick="dispenseMM"
-        android:src="@drawable/mm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fanta" />
-
-    <ImageButton
-        android:id="@+id/pepsi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="80dp"
-        android:onClick="dispensePepsi"
-        android:src="@drawable/pepsi"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mm" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="101dp"
+                android:fontFamily="@font/catatanperjalanan"
+                android:text="CryptoCola"
+                android:textSize="75dp" />
 
 
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/catatanperjalanan"
+                android:text="Current Price Of Soda"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/catatanperjalanan"
+                android:text="0.00024 BTC"
+                android:textSize="35dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btncontainer"
+            android:layout_width="match_parent"
+            android:layout_height="435dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/btns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="128dp"
+                tools:layout_editor_absoluteY="135dp">
+
+                <LinearLayout
+                    android:id="@+id/cokecontainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/cokeimg"
+                        android:layout_width="65dp"
+                        android:layout_height="69dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/coke" />
+
+                    <Button
+                        android:id="@+id/coke"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/coke"
+                        android:fontFamily="@font/catatanperjalanan"
+                        android:text="Coca-Cola"
+                        android:textSize="35dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pepsicontainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/pepsiimg"
+                        android:layout_width="65dp"
+                        android:layout_height="69dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/pepsi" />
+
+                    <Button
+                        android:id="@+id/pepsi"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/pepsi"
+                        android:fontFamily="@font/catatanperjalanan"
+                        android:text="Pepsi"
+                        android:textSize="35dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mtndewcontainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/mtndewimg"
+                        android:layout_width="65dp"
+                        android:layout_height="69dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/mtndew" />
+
+                    <Button
+                        android:id="@+id/mtndew"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/mtndew"
+                        android:fontFamily="@font/catatanperjalanan"
+                        android:text="Mountain Dew"
+                        android:textSize="35dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/drpeppercontainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/drpepperimg"
+                        android:layout_width="65dp"
+                        android:layout_height="69dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/drpepper" />
+
+                    <Button
+                        android:id="@+id/drpepper"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/drpepper"
+                        android:fontFamily="@font/catatanperjalanan"
+                        android:text="Dr. Pepper"
+                        android:textSize="35dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/rootbeercontainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/rootbeerimg"
+                        android:layout_width="65dp"
+                        android:layout_height="69dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/rootbeer" />
+
+                    <Button
+                        android:id="@+id/rootbeer"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/rootbeer"
+                        android:fontFamily="@font/catatanperjalanan"
+                        android:text="A&amp;W Root Beer"
+                        android:textSize="35dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lemonadecontainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/lemonadeimg"
+                        android:layout_width="65dp"
+                        android:layout_height="69dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/lemonade" />
+
+                    <Button
+                        android:id="@+id/lemonade"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/lemonade"
+                        android:fontFamily="@font/catatanperjalanan"
+                        android:text="Lemonade"
+                        android:textSize="35dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top|center_vertical|center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/vend"
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:background="@color/colorPrimary"
+                android:fontFamily="@font/catatanperjalanan"
+                android:text="Pay and Vend"
+                android:textSize="25dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

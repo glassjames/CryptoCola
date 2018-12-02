@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#6DE89F</color>
+    <color name="colorPrimaryDark">#66D192</color>
+    <color name="colorAccent">#FFFFFF</color>
+
+    <color name="coke">#ED6A89</color>
+    <color name="pepsi">#6E7FBD</color>
+    <color name="mtndew">#56CC59</color>
+    <color name="drpepper">#CE496F</color>
+    <color name="rootbeer">#F58C4A</color>
+    <color name="lemonade">#FAEE46</color>
+
 </resources>

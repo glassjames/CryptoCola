@@ -193,6 +193,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:background="@color/coke"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                         android:fontFamily="@font/catatanperjalanan"
                         android:text="Coca-Cola"
                         android:textSize="35dp" />
@@ -220,6 +221,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:background="@color/pepsi"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                         android:fontFamily="@font/catatanperjalanan"
                         android:text="Pepsi"
                         android:textSize="35dp" />
@@ -247,6 +249,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:background="@color/mtndew"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                         android:fontFamily="@font/catatanperjalanan"
                         android:text="Mountain Dew"
                         android:textSize="35dp" />
@@ -274,6 +277,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:background="@color/drpepper"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                         android:fontFamily="@font/catatanperjalanan"
                         android:text="Dr. Pepper"
                         android:textSize="35dp" />
@@ -301,6 +305,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:background="@color/rootbeer"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                         android:fontFamily="@font/catatanperjalanan"
                         android:text="A&amp;W Root Beer"
                         android:textSize="35dp" />
@@ -328,6 +333,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:background="@color/lemonade"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                         android:fontFamily="@font/catatanperjalanan"
                         android:text="Lemonade"
                         android:textSize="35dp" />
@@ -348,6 +354,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
                 android:background="@color/colorPrimary"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                 android:fontFamily="@font/catatanperjalanan"
                 android:text="Pay and Vend"
                 android:textSize="25dp" />
